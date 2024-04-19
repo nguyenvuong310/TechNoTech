@@ -6,9 +6,10 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { MongooseModule } from '@nestjs/mongoose';
+
+import { WalletsModule } from './wallets/wallets.module';
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -25,6 +26,8 @@ import { MongooseModule } from '@nestjs/mongoose';
       },
       inject: [ConfigService],
     }),
+    WalletsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

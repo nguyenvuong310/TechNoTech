@@ -20,7 +20,7 @@ export class UserService {
 
     async findAll(): Promise<User[]> {
         try {
-            const users = await this.userModel.find().exec();
+            const users = await this.userModel.find({}, { password: 0 }).exec();
             return users;
         } catch (error) {
             throw new HttpException('Failed to fetch users', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -41,7 +41,7 @@ export class UserService {
 
     async update(id: string, updateUserDto: Partial<User>): Promise<User> {
         try {
-            const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true, select: '-password' }).exec();
             if (!updatedUser) {
                 throw new HttpException('User not found', HttpStatus.NOT_FOUND);
             }
@@ -53,7 +53,12 @@ export class UserService {
 
     async delete(id: string): Promise<string> {
         try {
-            await this.userModel.findByIdAndDelete(id).exec();
+            const user = await this.userModel.findById(id).exec();
+            console.log(user);
+            if (!user) {
+                return "User deleted successfully"; // Or you can customize the message as needed
+            }
+            await this.userModel.deleteOne({ _id: id }).exec();
             return "User deleted successfully";
         } catch (error) {
             throw new HttpException('Failed to delete user', HttpStatus.INTERNAL_SERVER_ERROR);
