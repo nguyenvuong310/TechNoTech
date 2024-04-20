@@ -2,7 +2,7 @@
 import { Controller, Get, Post, Delete, Body, Param, Patch } from '@nestjs/common';
 import { Wallet } from './wallets.schema';
 import { WalletsService } from './wallets.service';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 @ApiTags('Wallets')
 @Controller('wallets')
 export class WalletsController {
@@ -13,6 +13,7 @@ export class WalletsController {
         status: 200,
         description: 'Get Users Sucessfully'
     })
+    @ApiOperation({ summary: 'Get all wallets from this api' })
     async findAll(): Promise<Wallet[]> {
         try {
             return await this.walletsService.findAll();
@@ -27,6 +28,7 @@ export class WalletsController {
         status: 200,
         description: 'Get User Sucessfully'
     })
+    @ApiOperation({ summary: 'Get wallet by id from this api' })
     async findById(@Param('id') id: string): Promise<Wallet | null> {
         try {
             return await this.walletsService.findById(id);
@@ -64,6 +66,7 @@ export class WalletsController {
         status: 201,
         description: 'Wallet was created successfully'
     })
+    @ApiOperation({ summary: 'Create new wallet from this api' })
     async create(@Body() walletDto: Partial<Wallet>): Promise<Wallet> {
         try {
             return await this.walletsService.create(walletDto);
@@ -101,6 +104,7 @@ export class WalletsController {
         status: 200,
         description: 'Wallet was updated successfully'
     })
+    @ApiOperation({ summary: 'Update wallet from this api' })
     async update(@Param('id') id: string, @Body() updatedWalletDto: Partial<Wallet>): Promise<Wallet | null> {
         try {
             return await this.walletsService.update(id, updatedWalletDto);
@@ -115,6 +119,7 @@ export class WalletsController {
         status: 200,
         description: 'Wallet was deleted successfully'
     })
+    @ApiOperation({ summary: 'Delete wallet from this api' })
     async delete(@Param('id') id: string): Promise<string> {
         try {
             return await this.walletsService.delete(id);

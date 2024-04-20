@@ -2,7 +2,7 @@
 import { Controller, Get, Post, Patch, Delete, Query, Body } from '@nestjs/common';
 import { UserService } from './users.service';
 import { User } from './users.schema';
-import { ApiBody, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags, ApiQuery, ApiOperation } from '@nestjs/swagger';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -18,6 +18,7 @@ export class UsersController {
         status: 200,
         description: 'Get Users successfully'
     })
+    @ApiOperation({ summary: 'Get all users or user by id from this api' })
     async findAllUsers(@Query('id') id?: string): Promise<User[]> {
         try {
             let data: User[] | null;
@@ -80,6 +81,7 @@ export class UsersController {
         status: 403,
         description: 'Fobidden'
     })
+    @ApiOperation({ summary: 'Create new user from this api' })
     async createUser(@Body() userData: Partial<User>): Promise<User> {
         try {
             const res = await this.userService.create(userData);
@@ -127,6 +129,7 @@ export class UsersController {
         status: 200,
         description: 'User was updated successfully'
     })
+    @ApiOperation({ summary: 'Update user from this api' })
     async updateUser(@Query('id') id: string, @Body() updatedUserData: Partial<User>): Promise<User> {
         try {
             const user = await this.userService.update(id, updatedUserData);
@@ -144,6 +147,7 @@ export class UsersController {
         status: 201,
         description: 'Delete User successfully'
     })
+    @ApiOperation({ summary: 'delete user from this api' })
     async deleteUser(@Query('id') id: string): Promise<string> {
         try {
             return await this.userService.delete(id);
