@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-
+import { ColorsModule } from './colors/colors.module';
+import { IconsModule } from './icons/icons.module';
+import { TagsModule } from './tags/tags.module';
+import { MoneySourcesModule } from './money-sources/money-sources.module';
+import { HistoryLogModule } from './history-log/history-log.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { WalletsModule } from './wallets/wallets.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -26,11 +27,15 @@ import { WalletsModule } from './wallets/wallets.module';
       },
       inject: [ConfigService],
     }),
-    WalletsModule,
     UsersModule,
+    ColorsModule,
+    IconsModule,
+    TagsModule,
+    MoneySourcesModule,
+    HistoryLogModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  // controllers: [AppController],
+  // providers: [AppService],
 })
 // eslint-disable-next-line prettier/prettier
-export class AppModule { }
+export class AppModule {}
