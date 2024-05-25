@@ -89,6 +89,11 @@ export class UsersController {
           example: '08xxxxxxxxx',
           description: 'this is the phone',
         },
+        totalMoney: {
+          type: 'number',
+          example: 0,
+          description: 'this is the total money',
+        },
       },
     },
   })

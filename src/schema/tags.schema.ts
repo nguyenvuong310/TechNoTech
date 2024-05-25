@@ -2,7 +2,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import { TagType } from 'src/common/enum';
+// import { TagType } from 'src/common/enum';
 
 @Schema()
 export class Tag extends Document {
@@ -15,8 +15,8 @@ export class Tag extends Document {
   @Prop({ type: 'ObjectId', ref: 'Icon' })
   iconId: string;
 
-  @Prop()
-  type: TagType;
+  // @Prop()
+  // type: TagType;
 
   @Prop({ type: 'ObjectId', ref: 'User' })
   userId: string;

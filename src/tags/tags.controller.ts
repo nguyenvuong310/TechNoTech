@@ -29,23 +29,23 @@ export class TagsController {
       properties: {
         iconId: {
           type: 'string',
-          example: 'xxxx-xxxx-xxxx-xxxx',
+          example: '664db8206095db73ea986f37',
         },
         colorId: {
           type: 'string',
-          example: 'xxxx-xxxx-xxxx-xxxx',
+          example: '664db8206095db73ea986f37',
         },
         name: {
           type: 'string',
           example: 'John Doe',
         },
-        type: {
-          type: 'string',
-          example: 'admin',
-        },
+        // type: {
+        //   type: 'string',
+        //   example: 'admin',
+        // },
         userId: {
           type: 'string',
-          example: 'xxxx-xxxx-xxxx-xxxx',
+          example: '664db8206095db73ea986f37',
         },
       },
     },

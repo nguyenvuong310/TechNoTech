@@ -31,15 +31,38 @@ export class MoneySourcesController {
       properties: {
         name: {
           type: 'string',
-          example: 'Bank Account',
+          example: 'Salary',
         },
-        balance: {
-          type: 'number',
-          example: 1000,
-        },
-        currency: {
+        TagId: {
           type: 'string',
-          example: 'USD',
+          format: 'ObjectId',
+          example: '60c72b2f5f1b2c001c8e4d60',
+        },
+        currentMoney: {
+          type: 'number',
+          example: 5000,
+        },
+        expectedMoney: {
+          type: 'number',
+          example: 6000,
+        },
+        Budget: {
+          type: 'number',
+          example: 5500,
+        },
+        type: {
+          type: 'string',
+          example: 'nguontien', // Adjust if moneySourceType is an enum
+        },
+        userId: {
+          type: 'string',
+          format: 'ObjectId',
+          example: '6651eb9b3a1ab1bee7e0ec99',
+        },
+        createdAt: {
+          type: 'string',
+          format: 'date-time',
+          example: '2023-05-25T15:00:00Z',
         },
       },
     },
@@ -53,6 +76,48 @@ export class MoneySourcesController {
   }
 
   @Patch()
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          example: 'Salary',
+        },
+        TagId: {
+          type: 'string',
+          format: 'ObjectId',
+          example: '60c72b2f5f1b2c001c8e4d60',
+        },
+        currentMoney: {
+          type: 'number',
+          example: 5000,
+        },
+        expectedMoney: {
+          type: 'number',
+          example: 6000,
+        },
+        Budget: {
+          type: 'number',
+          example: 5500,
+        },
+        type: {
+          type: 'string',
+          example: 'nguontien',
+        },
+        userId: {
+          type: 'string',
+          format: 'ObjectId',
+          example: '6651eb9b3a1ab1bee7e0ec99',
+        },
+        createdAt: {
+          type: 'string',
+          format: 'date-time',
+          example: '2023-05-25T15:00:00Z',
+        },
+      },
+    },
+  })
   async updateMoneySource(
     @Query('id') id: string,
     @Body() source: Partial<MoneySource>,
