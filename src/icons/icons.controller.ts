@@ -15,13 +15,9 @@ export class IconsController {
     schema: {
       type: 'object',
       properties: {
-        name: {
+        url: {
           type: 'string',
           example: 'icon name',
-        },
-        code: {
-          type: 'string',
-          example: 'icon code',
         },
       },
     },
