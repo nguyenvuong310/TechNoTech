@@ -50,6 +50,10 @@ export class HistoryLogController {
           type: 'string',
           example: '2021-06-11T07:00:00.000Z',
         },
+        description: {
+          type: 'string',
+          example: 'mua do',
+        },
       },
     },
   })
