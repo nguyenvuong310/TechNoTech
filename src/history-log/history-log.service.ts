@@ -244,10 +244,12 @@ export class HistoryLogService {
         .populate({
           path: 'MoneySourceId',
           model: this.moneySourceModel,
+          populate: [{ path: 'TagId', model: this.tagModel }],
         })
         .populate({
           path: 'MoneyDestId',
           model: this.moneySourceModel,
+          populate: [{ path: 'TagId', model: this.tagModel }],
         })
         .exec();
 
