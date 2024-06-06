@@ -7,5 +7,6 @@ import { IconsSchema } from '../schema/icons.schema';
   imports: [MongooseModule.forFeature([{ name: 'Icon', schema: IconsSchema }])],
   controllers: [IconsController],
   providers: [IconsService],
+  exports: [MongooseModule],
 })
 export class IconsModule {}

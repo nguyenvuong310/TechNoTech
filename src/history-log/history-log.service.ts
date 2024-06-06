@@ -7,6 +7,9 @@ import { logType } from 'src/common/enum';
 import { MoneySourcesService } from 'src/money-sources/money-sources.service';
 import { TagsService } from 'src/tags/tags.service';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { Tag } from 'src/schema/tags.schema';
+import { Icon } from 'src/schema/icons.schema';
+import { Color } from 'src/schema/colors.schema';
 
 @Injectable()
 export class HistoryLogService {
@@ -14,6 +17,9 @@ export class HistoryLogService {
     @InjectModel(HistoryLog.name) private historyLogModel: Model<HistoryLog>,
     private moneySourceService: MoneySourcesService,
     private tagService: TagsService,
+    @InjectModel(Tag.name) private readonly tagModel: Model<Tag>,
+    @InjectModel(Icon.name) private readonly iconModel: Model<Icon>,
+    @InjectModel(Color.name) private readonly colorModel: Model<Color>,
   ) {}
   async findAll(): Promise<HistoryLog[]> {
     return this.historyLogModel.find().exec();
@@ -224,6 +230,14 @@ export class HistoryLogService {
 
       const logHistory = await this.historyLogModel
         .find({ userId: objectIdUserId })
+        .populate({
+          path: 'TagId',
+          model: this.tagModel,
+          populate: [
+            { path: 'iconId', model: this.iconModel },
+            { path: 'colorId', model: this.colorModel },
+          ],
+        })
         .exec();
 
       return logHistory;

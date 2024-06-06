@@ -9,5 +9,6 @@ import { ColorsService } from './colors.service';
   ],
   controllers: [ColorsController],
   providers: [ColorsService],
+  exports: [MongooseModule],
 })
 export class ColorsModule {}

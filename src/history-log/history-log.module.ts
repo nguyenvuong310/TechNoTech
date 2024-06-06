@@ -6,6 +6,8 @@ import { TagsSchema } from '../schema/tags.schema';
 import { HistoryLogController } from './history-log.controller';
 import { MoneySourcesModule } from 'src/money-sources/money-sources.module';
 import { TagsModule } from 'src/tags/tags.module';
+import { IconsModule } from 'src/icons/icons.module';
+import { ColorsModule } from 'src/colors/colors.module';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -14,6 +16,8 @@ import { TagsModule } from 'src/tags/tags.module';
     ]),
     MoneySourcesModule,
     TagsModule,
+    IconsModule,
+    ColorsModule,
   ],
   controllers: [HistoryLogController],
   providers: [HistoryLogService],
