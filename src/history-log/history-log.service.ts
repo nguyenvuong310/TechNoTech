@@ -10,6 +10,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { Tag } from 'src/schema/tags.schema';
 import { Icon } from 'src/schema/icons.schema';
 import { Color } from 'src/schema/colors.schema';
+import { MoneySource } from 'src/schema/moneysource.schema';
 
 @Injectable()
 export class HistoryLogService {
@@ -20,6 +21,8 @@ export class HistoryLogService {
     @InjectModel(Tag.name) private readonly tagModel: Model<Tag>,
     @InjectModel(Icon.name) private readonly iconModel: Model<Icon>,
     @InjectModel(Color.name) private readonly colorModel: Model<Color>,
+    @InjectModel(MoneySource.name)
+    private readonly moneySourceModel: Model<MoneySource>,
   ) {}
   async findAll(): Promise<HistoryLog[]> {
     return this.historyLogModel.find().exec();
@@ -237,6 +240,10 @@ export class HistoryLogService {
             { path: 'iconId', model: this.iconModel },
             { path: 'colorId', model: this.colorModel },
           ],
+        })
+        .populate({
+          path: 'MoneySourceId MoneyDestId',
+          model: this.moneySourceModel,
         })
         .exec();
 

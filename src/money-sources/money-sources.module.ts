@@ -16,6 +16,6 @@ import { HistoryLogModule } from 'src/history-log/history-log.module';
   ],
   controllers: [MoneySourcesController],
   providers: [MoneySourcesService],
-  exports: [MoneySourcesService],
+  exports: [MoneySourcesService, MongooseModule],
 })
 export class MoneySourcesModule {}
