@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ColorsService } from './colors.service';
 import { Color } from '../schema/colors.schema';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
@@ -28,5 +28,10 @@ export class ColorsController {
     } catch (error) {
       return error;
     }
+  }
+
+  @Get(':id')
+  async getColorById(@Param('id') id: string): Promise<Color> {
+    return this.colorsService.getColorById(id);
   }
 }

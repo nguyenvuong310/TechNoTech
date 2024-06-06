@@ -6,6 +6,7 @@ import {
   Query,
   Patch,
   Delete,
+  Param,
 } from '@nestjs/common';
 import { TagsService } from './tags.service';
 import { Tag } from '../schema/tags.schema';
@@ -104,6 +105,25 @@ export class TagsController {
   async deleteTag(@Query('id') id: string): Promise<string> {
     try {
       return this.tagsService.delete(id);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get tag by id' })
+  async findTagById(@Param('id') id: string): Promise<Tag> {
+    try {
+      return this.tagsService.findById(id);
+    } catch (error) {
+      return error;
+    }
+  }
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Get all tags by userId' })
+  async getAllTagByUserId(@Param('userId') userId: string): Promise<Tag[]> {
+    try {
+      return this.tagsService.getAllTagByUserId(userId);
     } catch (error) {
       return error;
     }

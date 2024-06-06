@@ -193,4 +193,12 @@ export class HistoryLogController {
       return error;
     }
   }
+  @Get('by-user-id')
+  async getLogByUserId(@Query('userId') userId: string) {
+    try {
+      return this.logService.getAllLogByUserId(userId);
+    } catch (error) {
+      return error;
+    }
+  }
 }

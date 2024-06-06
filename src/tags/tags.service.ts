@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Tag } from 'src/schema/tags.schema';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import mongoose from 'mongoose';
 @Injectable()
 export class TagsService {
   constructor(@InjectModel(Tag.name) private tagModel: Model<Tag>) {}
@@ -63,6 +64,25 @@ export class TagsService {
     } catch (error) {
       throw new HttpException(
         'Failed to fetch tag',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  async getAllTagByUserId(userId: string): Promise<Tag[]> {
+    try {
+      console.log('userId:', userId);
+      let objectIdUserId: any;
+      if (mongoose.Types.ObjectId.isValid(userId)) {
+        objectIdUserId = new mongoose.Types.ObjectId(userId);
+      } else {
+        throw new Error('Invalid userId format');
+      }
+      console.log('objectIdUserId:', objectIdUserId);
+      const tags = await this.tagModel.find({ userId: objectIdUserId }).exec();
+      return tags;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to fetch tags',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

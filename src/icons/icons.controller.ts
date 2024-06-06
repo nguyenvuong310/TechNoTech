@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { IconsService } from './icons.service';
 import { Icon } from '../schema/icons.schema';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
@@ -28,5 +28,10 @@ export class IconsController {
   })
   async createIcon(@Body() icon: Icon): Promise<Icon> {
     return this.iconService.create(icon);
+  }
+
+  @Get(':id')
+  async getIconById(@Param('id') id: string): Promise<Icon> {
+    return this.iconService.getIconById(id);
   }
 }

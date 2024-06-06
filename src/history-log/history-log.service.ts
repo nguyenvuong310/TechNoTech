@@ -213,4 +213,25 @@ export class HistoryLogService {
       );
     }
   }
+  async getAllLogByUserId(userId: string): Promise<HistoryLog[]> {
+    try {
+      let objectIdUserId: any;
+      if (mongoose.Types.ObjectId.isValid(userId)) {
+        objectIdUserId = new mongoose.Types.ObjectId(userId);
+      } else {
+        throw new Error('Invalid userId format');
+      }
+
+      const logHistory = await this.historyLogModel
+        .find({ userId: objectIdUserId })
+        .exec();
+
+      return logHistory;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to fetch log history',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

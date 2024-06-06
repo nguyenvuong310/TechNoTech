@@ -12,4 +12,7 @@ export class ColorsService {
     const newColor = new this.colorModel(color);
     return newColor.save();
   }
+  async getColorById(id: string): Promise<Color> {
+    return this.colorModel.findById(id);
+  }
 }

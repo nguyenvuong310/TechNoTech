@@ -9,6 +9,9 @@ export class HistoryLog extends Document {
   @Prop()
   name: string;
 
+  @Prop()
+  description: string;
+
   @Prop({ type: 'ObjectId', ref: 'Tag' }) // danh muc
   TagId: string;
 

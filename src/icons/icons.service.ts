@@ -12,4 +12,7 @@ export class IconsService {
     const newIcon = new this.iconModel(icon);
     return newIcon.save();
   }
+  async getIconById(id: string): Promise<Icon> {
+    return this.iconModel.findById(id);
+  }
 }
