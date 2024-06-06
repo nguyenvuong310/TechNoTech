@@ -244,12 +244,26 @@ export class HistoryLogService {
         .populate({
           path: 'MoneySourceId',
           model: this.moneySourceModel,
-          populate: [{ path: 'TagId', model: this.tagModel }],
+          populate: {
+            path: 'TagId',
+            model: this.tagModel,
+            populate: [
+              { path: 'iconId', model: this.iconModel },
+              { path: 'colorId', model: this.colorModel },
+            ],
+          },
         })
         .populate({
           path: 'MoneyDestId',
           model: this.moneySourceModel,
-          populate: [{ path: 'TagId', model: this.tagModel }],
+          populate: {
+            path: 'TagId',
+            model: this.tagModel,
+            populate: [
+              { path: 'iconId', model: this.iconModel },
+              { path: 'colorId', model: this.colorModel },
+            ],
+          },
         })
         .exec();
 
