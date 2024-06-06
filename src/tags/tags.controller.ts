@@ -9,12 +9,13 @@ import {
 } from '@nestjs/common';
 import { TagsService } from './tags.service';
 import { Tag } from '../schema/tags.schema';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiOperation } from '@nestjs/swagger';
 @ApiTags('Tags')
 @Controller('tags')
 export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
   @Get()
+  @ApiOperation({ summary: 'Get all tags' })
   async findAllTags(): Promise<Tag[]> {
     try {
       return this.tagsService.findAll();
@@ -23,13 +24,14 @@ export class TagsController {
     }
   }
   @Post()
+  @ApiOperation({ summary: 'Create a new tag' })
   @ApiBody({
     schema: {
       type: 'object',
       properties: {
         iconId: {
           type: 'string',
-          example: '664db8206095db73ea986f37',
+          example: '665ad4df7252665498fc180a',
         },
         colorId: {
           type: 'string',
@@ -37,7 +39,7 @@ export class TagsController {
         },
         name: {
           type: 'string',
-          example: 'John Doe',
+          example: 'shopping',
         },
         // type: {
         //   type: 'string',
@@ -58,6 +60,34 @@ export class TagsController {
     }
   }
   @Patch()
+  @ApiOperation({ summary: 'Update a tag' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        iconId: {
+          type: 'string',
+          example: '665ad4df7252665498fc180a',
+        },
+        colorId: {
+          type: 'string',
+          example: '664db8206095db73ea986f37',
+        },
+        name: {
+          type: 'string',
+          example: 'gaming',
+        },
+        // type: {
+        //   type: 'string',
+        //   example: 'admin',
+        // },
+        userId: {
+          type: 'string',
+          example: '664db8206095db73ea986f37',
+        },
+      },
+    },
+  })
   async updateTag(
     @Query('id') id: string,
     @Body() tag: Partial<Tag>,
@@ -68,7 +98,9 @@ export class TagsController {
       return error;
     }
   }
+
   @Delete()
+  @ApiOperation({ summary: 'Delete a tag' })
   async deleteTag(@Query('id') id: string): Promise<string> {
     try {
       return this.tagsService.delete(id);

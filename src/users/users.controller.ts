@@ -181,12 +181,46 @@ export class UsersController {
     }
   }
   @Get('login')
+  @ApiQuery({
+    name: 'username',
+    required: true,
+    schema: {
+      type: 'string',
+      example: 'user01',
+    },
+  })
+  @ApiQuery({
+    name: 'password',
+    required: true,
+    schema: {
+      type: 'string',
+      example: 'password',
+    },
+  })
+  @ApiOperation({ summary: 'login account user' })
   async login(
     @Query('username') username: string,
     @Query('password') password: string,
   ): Promise<User> {
     try {
       return await this.userService.login(username, password);
+    } catch (error) {
+      return error;
+    }
+  }
+  @Get('balanceAccount')
+  @ApiQuery({
+    name: 'userId',
+    required: true,
+    schema: {
+      type: 'string',
+      example: '665dcbf114bc7da8c41eddf3',
+    },
+  })
+  @ApiOperation({ summary: 'get money from user' })
+  async getMoney(@Query('userId') id: string) {
+    try {
+      return await this.userService.getMoney(id);
     } catch (error) {
       return error;
     }

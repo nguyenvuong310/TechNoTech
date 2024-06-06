@@ -4,12 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MoneySourceSchema } from '../schema/moneysource.schema';
 import { MoneySourcesController } from './money-sources.controller';
 import { UsersModule } from 'src/users/users.module';
+import { forwardRef } from '@nestjs/common';
+import { HistoryLogModule } from 'src/history-log/history-log.module';
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: 'MoneySource', schema: MoneySourceSchema },
     ]),
-    UsersModule,
+    forwardRef(() => UsersModule),
+    forwardRef(() => HistoryLogModule),
   ],
   controllers: [MoneySourcesController],
   providers: [MoneySourcesService],

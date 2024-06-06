@@ -53,4 +53,18 @@ export class TagsService {
       );
     }
   }
+  async findById(id: string): Promise<Tag> {
+    try {
+      const tag = await this.tagModel.findById(id);
+      if (!tag) {
+        throw new HttpException('Tag not found', HttpStatus.NOT_FOUND);
+      }
+      return tag;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to fetch tag',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }
