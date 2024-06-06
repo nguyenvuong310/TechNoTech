@@ -200,6 +200,14 @@ export class HistoryLogService {
     try {
       const logHistory = await this.historyLogModel
         .find({ MoneySourceId: id })
+        .populate({
+          path: 'TagId',
+          model: this.tagModel,
+          populate: [
+            { path: 'iconId', model: this.iconModel },
+            { path: 'colorId', model: this.colorModel },
+          ],
+        })
         .exec();
       let expenseValue = 0;
       let incomeValue = 0;

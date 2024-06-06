@@ -6,6 +6,9 @@ import { MoneySourcesController } from './money-sources.controller';
 import { UsersModule } from 'src/users/users.module';
 import { forwardRef } from '@nestjs/common';
 import { HistoryLogModule } from 'src/history-log/history-log.module';
+import { TagsModule } from 'src/tags/tags.module';
+import { IconsModule } from 'src/icons/icons.module';
+import { ColorsModule } from 'src/colors/colors.module';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -13,6 +16,9 @@ import { HistoryLogModule } from 'src/history-log/history-log.module';
     ]),
     forwardRef(() => UsersModule),
     forwardRef(() => HistoryLogModule),
+    forwardRef(() => TagsModule),
+    forwardRef(() => IconsModule),
+    forwardRef(() => ColorsModule),
   ],
   controllers: [MoneySourcesController],
   providers: [MoneySourcesService],

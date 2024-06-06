@@ -7,6 +7,9 @@ import { moneySourceType } from 'src/common/enum';
 import { UserService } from '../users/users.service';
 import { Inject, forwardRef } from '@nestjs/common';
 import { HistoryLogService } from 'src/history-log/history-log.service';
+import { Tag } from 'src/schema/tags.schema';
+import { Icon } from 'src/schema/icons.schema';
+import { Color } from 'src/schema/colors.schema';
 @Injectable()
 export class MoneySourcesService {
   constructor(
@@ -15,6 +18,9 @@ export class MoneySourcesService {
     private userService: UserService,
     @Inject(forwardRef(() => HistoryLogService))
     private historyLogService: HistoryLogService,
+    @InjectModel(Tag.name) private readonly tagModel: Model<Tag>,
+    @InjectModel(Icon.name) private readonly iconModel: Model<Icon>,
+    @InjectModel(Color.name) private readonly colorModel: Model<Color>,
   ) {}
   async findAll(): Promise<MoneySource[]> {
     try {
@@ -93,6 +99,14 @@ export class MoneySourcesService {
     try {
       const moneySource = await this.moneySourceModel
         .findOne({ _id: moneySourceId, userId: userid })
+        .populate({
+          path: 'TagId',
+          model: this.tagModel,
+          populate: [
+            { path: 'iconId', model: this.iconModel },
+            { path: 'colorId', model: this.colorModel },
+          ],
+        })
         .exec();
 
       if (!moneySource) {
